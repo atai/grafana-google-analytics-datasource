@@ -12,10 +12,10 @@
   "author": "blackcowmoo",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@grafana/data": "9.2.3",
-    "@grafana/runtime": "9.2.3",
-    "@grafana/toolkit": "9.2.3",
-    "@grafana/ui": "9.2.3",
+    "@grafana/data": "11.0.0",
+    "@grafana/runtime": "11.0.0",
+    "@grafana/toolkit": "11.0.0",
+    "@grafana/ui": "11.0.0",
     "@types/lodash": "^4.14.175",
     "@types/react-dropzone": "^5.1.0"
   },
