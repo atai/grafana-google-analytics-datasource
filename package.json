@@ -14,12 +14,12 @@
   "devDependencies": {
     "@grafana/data": "11.0.0",
     "@grafana/runtime": "11.0.0",
-    "@grafana/toolkit": "11.0.0",
-    "@grafana/ui": "11.0.0",
-    "@types/lodash": "^4.14.175",
+    "@grafana/toolkit": "9.5.19",
+    "@grafana/ui": "~11.0.0",
+    "@types/lodash": "^4.17.5",
     "@types/react-dropzone": "^5.1.0"
   },
   "engines": {
-    "node": ">=14"
+    "node": ">=19"
   }
 }
