@@ -1,6 +1,6 @@
 module github.com/blackcowmoo/grafana-google-analytics-dataSource
 
-go 1.22
+go 1.21
 
 require (
 	github.com/grafana/grafana-plugin-sdk-go v0.236.0
