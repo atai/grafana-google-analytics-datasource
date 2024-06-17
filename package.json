@@ -4,24 +4,18 @@
   "description": " Google-Analytics to Grafana",
   "scripts": {
     "build": "webpack -c ./.config/webpack/webpack.config.ts --env production",
-    "test": "jest --watch --onlyChanged",
     "dev": "webpack -w -c ./.config/webpack/webpack.config.ts --env development",
-    "sign": "npx --yes @grafana/sign-plugin@latest",
-    "test:ci": "jest --passWithNoTests --maxWorkers 4",
-    "typecheck": "tsc --noEmit",
     "lint": "eslint --cache --ignore-path ./.gitignore --ext .js,.jsx,.ts,.tsx .",
     "lint:fix": "yarn run lint --fix",
-    "server": "docker-compose up --build"
+    "server": "docker-compose up --build",
+    "sign": "npx --yes @grafana/sign-plugin@latest",
+    "test": "jest --watch --onlyChanged",
+    "test:ci": "jest --passWithNoTests --maxWorkers 4",
+    "typecheck": "tsc --noEmit"
   },
   "author": "blackcowmoo",
   "license": "Apache-2.0",
   "devDependencies": {
-    "@grafana/data": "11.0.0",
-    "@grafana/runtime": "11.0.0",
-    "@grafana/toolkit": "9.5.19",
-    "@grafana/ui": "~11.0.0",
-    "@types/lodash": "^4.17.5",
-    "@types/react-dropzone": "^5.1.0",
     "@babel/core": "^7.21.4",
     "@grafana/eslint-config": "^7.0.0",
     "@grafana/tsconfig": "^1.2.0-rc1",
@@ -31,7 +25,9 @@
     "@testing-library/jest-dom": "6.1.4",
     "@testing-library/react": "14.0.0",
     "@types/jest": "^29.5.0",
+    "@types/lodash": "^4.14.194",
     "@types/node": "^20.8.7",
+    "@types/react-dropzone": "^5.1.0",
     "@types/react-router-dom": "^5.2.0",
     "@types/testing-library__jest-dom": "5.14.8",
     "copy-webpack-plugin": "^11.0.0",
@@ -63,10 +59,11 @@
     "@emotion/css": "11.10.6",
     "@grafana/data": "10.3.3",
     "@grafana/runtime": "10.3.3",
-    "@grafana/ui": "10.3.3",
     "@grafana/schema": "10.3.3",
+    "@grafana/ui": "10.3.3",
     "react": "18.2.0",
     "react-dom": "18.2.0",
     "tslib": "2.5.3"
-  }
+  },
+  "packageManager": "yarn@1.22.22"
 }
