@@ -1,38 +1,43 @@
-import { DataSourceInstanceSettings, ScopedVars, SelectableValue } from '@grafana/data';
-import { DataSourceWithBackend, getTemplateSrv } from '@grafana/runtime';
-import { CascaderOption } from '@grafana/ui';
-import { AccountSummary, GADataSourceOptions, GAMetadata, GAQuery } from './types';
+import {DataSourceInstanceSettings, SelectableValue} from '@grafana/data';
+import {DataSourceWithBackend} from '@grafana/runtime';
+import {CascaderOption} from '@grafana/ui';
+import {AccountSummary, GADataSourceOptions, GAMetadata, GAQuery} from './types';
 
 export class DataSource extends DataSourceWithBackend<GAQuery, GADataSourceOptions> {
   version: string;
+
   constructor(instanceSettings: DataSourceInstanceSettings<GADataSourceOptions>) {
     super(instanceSettings);
     console.log('instanceSettings', instanceSettings);
     this.version = instanceSettings.jsonData.version
   }
 
-  applyTemplateVariables(query: GAQuery, scopedVars: ScopedVars): Record<string, any> {
-    const templateSrv = getTemplateSrv();
-    let dimensionFilter = query.dimensionFilter
-    if (dimensionFilter.orGroup) {
-      dimensionFilter.orGroup.expressions.map(expression => {
-        if (expression.filter?.stringFilter) {
-          expression.filter.stringFilter.value = templateSrv.replace(expression.filter.stringFilter.value, scopedVars)
-        }
-        if (expression.filter?.inListFilter) {
-          expression.filter.inListFilter.values = expression.filter.inListFilter.values.map(value => {
-            value = templateSrv.replace(value, scopedVars)
-            return value
-          })
-        }
-        return expression
-      })
-    }
-    return {
-      ...query,
-      dimensionFilter
-    };
-  }
+  // applyTemplateVariables(
+  //   query: GAQuery, scopedVars: ScopedVars): Record<string, any> {
+  //   const templateSrv = getTemplateSrv();
+  //   let dimensionFilter = query.dimensionFilter
+  //   if (dimensionFilter.orGroup) {
+  //     dimensionFilter.orGroup.expressions.map(expression => {
+  //       if (expression.filter?.stringFilter) {
+  //         expression.filter.stringFilter.value = templateSrv.replace(expression.filter.stringFilter.value, scopedVars)
+  //       }
+  //       if (expression.filter?.inListFilter) {
+  //         expression.filter.inListFilter.values =
+  //           expression.filter.inListFilter.values.map(
+  //             value => {
+  //               value = templateSrv.replace(value, scopedVars)
+  //               return value
+  //             })
+  //       }
+  //       return expression
+  //     })
+  //   }
+  //   return {
+  //     ...query,
+  //     dimensionFilter,
+  //   };
+  // }
+
   async getAccountSummaries(): Promise<CascaderOption[]> {
     let accountSummaries = (await this.getResource('account-summaries')).accountSummaries as AccountSummary[]
     let accounts: CascaderOption[] = [];
@@ -71,13 +76,13 @@ export class DataSource extends DataSourceWithBackend<GAQuery, GADataSourceOptio
   }
 
   async getTimezone(accountId: string, webPropertyId: string, profileId: string): Promise<string> {
-    return this.getResource('profile/timezone', { accountId, webPropertyId, profileId }).then(({ timezone }) => {
+    return this.getResource('profile/timezone', {accountId, webPropertyId, profileId}).then(({timezone}) => {
       return timezone;
     });
   }
 
   async getMetrics(query: string, webPropertyId: string): Promise<Array<SelectableValue<string>>> {
-    return this.getResource('metrics', { webPropertyId }).then(({ metrics }) => {
+    return this.getResource('metrics', {webPropertyId}).then(({metrics}) => {
       return metrics.reduce((pre: Array<SelectableValue<string>>, element: GAMetadata) => {
         if (
           element.id.toLowerCase().indexOf(query) > -1 ||
@@ -95,7 +100,7 @@ export class DataSource extends DataSourceWithBackend<GAQuery, GADataSourceOptio
   }
 
   async getDimensions(query: string, exclude: any, webPropertyId: string): Promise<Array<SelectableValue<string>>> {
-    return this.getResource('dimensions', { webPropertyId }).then(({ dimensions }) => {
+    return this.getResource('dimensions', {webPropertyId}).then(({dimensions}) => {
       return dimensions.reduce((pre: Array<SelectableValue<string>>, element: GAMetadata) => {
         if (
           (element.id.toLowerCase().indexOf(query) > -1 ||
@@ -123,6 +128,7 @@ export class DataSource extends DataSourceWithBackend<GAQuery, GADataSourceOptio
   async getDimensionsExcludeTimeDimensions(query: string, webPropertyId: string): Promise<Array<SelectableValue<string>>> {
     return await this.getDimensions(query, 'date', webPropertyId);
   }
+
   getGaVersion(): string {
     return this.version
   }
