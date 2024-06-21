@@ -6,15 +6,14 @@ import (
 	"net/http"
 	"time"
 
-	"github.com/blackcowmoo/grafana-google-analytics-dataSource/pkg/gav3"
-	"github.com/blackcowmoo/grafana-google-analytics-dataSource/pkg/gav4"
-	"github.com/blackcowmoo/grafana-google-analytics-dataSource/pkg/setting"
+	"./gav3"
+	"./gav4"
+	"./setting"
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/resource/httpadapter"
 	"github.com/grafana/grafana-plugin-sdk-go/data"
-	"github.com/patrickmn/go-cache"
 )
 
 // GoogleAnalyticsDataSource handler for google sheets
@@ -116,8 +115,6 @@ func writeResult(rw http.ResponseWriter, path string, val interface{}, err error
 	}
 	rw.WriteHeader(code)
 }
-
-
 
 func (ds *GoogleAnalyticsDataSource) handleResourceDimensions(rw http.ResponseWriter, req *http.Request) {
 	if req.Method != http.MethodGet {
