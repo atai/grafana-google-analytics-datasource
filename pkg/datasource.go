@@ -6,9 +6,9 @@ import (
 	"net/http"
 	"time"
 
-	"./gav3"
-	"./gav4"
-	"./setting"
+	"github.com/blackcowmoo/grafana-google-analytics-dataSource/pkg/gav3"
+	"github.com/blackcowmoo/grafana-google-analytics-dataSource/pkg/gav4"
+	"github.com/blackcowmoo/grafana-google-analytics-dataSource/pkg/setting"
 	"github.com/grafana/grafana-plugin-sdk-go/backend"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/instancemgmt"
 	"github.com/grafana/grafana-plugin-sdk-go/backend/log"
